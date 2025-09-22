@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: pytest_async
+Version: 0.1.1
+Summary: pytest-async - Run your coroutine in event loop without decorator
+Home-page: https://github.com/hyperleex/pytest-async
+License: UNKNOWN
+Author: Andrew Lee
+Author-email: leedevx@gmail.com
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Classifier: License :: OSI Approved :: MIT License
+
+pytest-async
+============
+
+[![image](https://img.shields.io/pypi/v/pytest-async.svg)](https://pypi.python.org/pypi/pytest-async)
+[![Latest Travis CI build status](https://travis-ci.org/hyperleex/pytest-async.png)](https://travis-ci.org/hyperleex/pytest-async)
+
+🌪Pytest plugin fot run your async test in event loop without decorator
+
+Usage
+-----
+
+1)  Install pytest\_async
+2)  write async tests
+3)  done! ✅
+
+Installation
+------------
+ ```bash
+ pip install pytest_async
+ ```
+### Requirements
+
+Python 3.6+
+
+Licence
+-------
+
+This project is licensed under the terms of the MIT license.
+
+Authors
+-------
+
+pytest-async was written by [Andrew Lee](https://github.com/hyperleex).
+
