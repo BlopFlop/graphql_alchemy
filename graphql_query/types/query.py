@@ -2,7 +2,7 @@ from typing import Any, Type
 
 from pydantic import BaseModel, Field, model_validator
 
-from .base import GraphQlField, GraphQlModel
+from .base import GraphQlModel
 from .enums import GraphQlMethodType
 from graphql_query.const import String, Int, Float, Boolean, Date, DateTime, UUID
 from graphql_query.utils import inputs_to_graphql, inputs_to_graphql_mapping, models_to_graphql
@@ -45,12 +45,12 @@ class GraphQlQuery(BaseModel):
     }
     ```
     """
-    type: GraphQlMethodType
+    type_: GraphQlMethodType
     name: str = "Default"
     name_method: str
     inputs: dict[str, Any] | None = None
     query_mapping_types: dict[Type, str] | None = Field(default_factory=lambda: {})
-    models: list[GraphQlModel, GraphQlField]
+    models: list[GraphQlModel]
 
     @model_validator(mode="after")
     def bind_mapping_types(self) -> None:
@@ -67,11 +67,7 @@ class GraphQlQuery(BaseModel):
     def __str__(self) -> str:
         fields = models_to_graphql(self.models)
 
-        if self.inputs:
-            mapping = f"({inputs_to_graphql_mapping(self.inputs, self.query_mapping_types)})"
-            inputs = f"({inputs_to_graphql(self.inputs)})"
-        else:
-            mapping = ""
-            inputs = ""
+        mapping = f"({inputs_to_graphql_mapping(self.inputs, self.query_mapping_types)})" if self.inputs else ""
+        inputs = f"({inputs_to_graphql(self.inputs)})" if self.inputs else ""
 
-        return f"{self.type} {self.name}{mapping} {{{self.name_method}{inputs} {fields}}}"
+        return f"{self.type_} {self.name}{mapping} {{{self.name_method}{inputs} {fields}}}"
