@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 import pytest
 
-from graphql_query.utils import inputs_to_graphql, inputs_to_graphql_mapping
+from graphql_query.utils import inputs_to_graphql_mapping
 from graphql_query.const import String, Int, Float, Boolean
 
 
@@ -62,13 +62,12 @@ check_empty_inputs_3 = {}
     )
 )
 def test_data_inputs_graphql(data, mapping, check_types, check_inputs):
-    result = inputs_to_graphql_mapping(data, mapping)
-    assert isinstance(result, str)
+    types, inputs = inputs_to_graphql_mapping(data, mapping)
+    assert isinstance(types, str)
+    assert isinstance(inputs, str)
+
     for type_ in check_types:
         assert type_ in check_types
 
-    result = inputs_to_graphql(data_not_mapping_types_1)
-
-    assert isinstance(result, str)
     for input_ in check_inputs:
         assert input_ in check_inputs

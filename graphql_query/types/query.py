@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field, model_validator
 from .base import GraphQlModel
 from .enums import GraphQlMethodType
 from graphql_query.const import String, Int, Float, Boolean, Date, DateTime, UUID
-from graphql_query.utils import inputs_to_graphql, inputs_to_graphql_mapping, models_to_graphql
+from graphql_query.utils import inputs_to_graphql_mapping, models_to_graphql
 
 
 class GraphQlQuery(BaseModel):
@@ -67,7 +67,10 @@ class GraphQlQuery(BaseModel):
     def __str__(self) -> str:
         fields = models_to_graphql(self.models)
 
-        mapping = f"({inputs_to_graphql_mapping(self.inputs, self.query_mapping_types)})" if self.inputs else ""
-        inputs = f"({inputs_to_graphql(self.inputs)})" if self.inputs else ""
+        if self.inputs:
+            fields_to_type, fields_to_fileds = inputs_to_graphql_mapping(self.inputs, self.query_mapping_types)
+            mapping, inputs = f"({fields_to_type})", f"({fields_to_fileds})"
+        else:
+            mapping, inputs = "", ""
 
         return f"{self.type_} {self.name}{mapping} {{{self.name_method}{inputs} {fields}}}"

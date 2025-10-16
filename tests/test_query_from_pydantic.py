@@ -324,13 +324,15 @@ class FourthInput(BaseModel):
     page: int | None = None
     order_by: dict | OrderBy | None = None
     limit: int | None = None
+    list_: list | None = None
 
 
 fourth_input = FourthInput(
     where=Filter(),
     page=1,
     order_by=OrderBy(),
-    limit=10
+    limit=10,
+    list_=[]
 )
 
 
