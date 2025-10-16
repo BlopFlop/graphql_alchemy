@@ -16,7 +16,7 @@ Dataclass = TypeVar("Dataclass")
 def build_inputs(data: Union[BaseModel, dict, Dataclass, None] = None) -> dict[str, Any] | None:
     conditions = (
         (isinstance(data, dict), lambda: data),
-        (isinstance(data, BaseModel), lambda: data.model_dump(mode="python")),
+        (isinstance(data, BaseModel), lambda: {field: getattr(data, field) for field in data.model_dump().keys()}),
         (is_dataclass(data), lambda: asdict(data))
     )
     return next((func for c, func in conditions if c), lambda: None)()
