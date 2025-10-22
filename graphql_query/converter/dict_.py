@@ -10,7 +10,6 @@ def bind_graph_ql_model(
     name_model: str,
     visited: set[str] = None
 ) -> GraphQlModel:
-    """Создает GraphQlModel из произвольного словаря"""
     visited = set() if visited is None else visited
     model_name = f"{name_model}Model"
 

@@ -1,8 +1,13 @@
+[project]
+name = "graphql-alchemy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
 [tool.pytest.ini_options]
-pythonpath = ["app"]
+pythonpath = ["graphql_query"]
 testpaths = ["tests"]
 python_files = "test_*.py"
 addopts = "-vvv"
-asyncio_mode = "auto"
-asyncio_default_fixture_loop_scope = "session"
-asyncio_default_test_loop_scope = "session"

@@ -11,7 +11,7 @@ from graphql_query.types import GraphQlModel, GraphQlField
 def get_pydantic_model_from_field_annotate(field_info: FieldInfo) -> BaseModel | None:
     annotation = field_info.annotation
 
-    if issubclass(annotation, BaseModel):
+    if isinstance(annotation, type) and issubclass(annotation, BaseModel):
         return annotation
 
     origin = get_origin(annotation)
@@ -21,12 +21,12 @@ def get_pydantic_model_from_field_annotate(field_info: FieldInfo) -> BaseModel |
         # Optional[Model] -> Union[Model, None]
         if origin is Union:
             for arg in args:
-                if issubclass(arg, BaseModel):
+                if isinstance(annotation, type) and issubclass(annotation, BaseModel):
                     return arg
 
         # list[Model]
         for arg in args:
-            if issubclass(arg, BaseModel):
+            if isinstance(arg, type) and issubclass(arg, BaseModel):
                 return arg
 
     return None
