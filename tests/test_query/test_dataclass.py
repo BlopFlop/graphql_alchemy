@@ -1,28 +1,31 @@
-from typing import Literal, Union
-from uuid import UUID
-
-from graphql_query.types import GraphQlMethodType
+from typing import Literal, Union, Optional
+from uuid import UUID, uuid4
 
 import pytest
-from pydantic import BaseModel, Field
+from dataclasses import fields, field, dataclass
 
-from graphql_query.main import build_query
+from graphql_query.types import GraphQlMethodType, GraphQlQuery
+from graphql_query.converter import dataclass_converter
+
 from tests.fixtures.fuctions import normalize_graphql_query
 from tests.fixtures.queries import fst_query, snd_query, third_query, fouth_query
 
 
-class ReturnError(BaseModel):
-    typename: Literal["ReturnError"] = Field(default="ReturnError", alias="__typename")
-    message: str
-    name: str
+@dataclass
+class ReturnError:
+    typename: Literal["ReturnError"] = "ReturnError"
+    message: str = "test"
+    name: str = "test"
 
 
-class Fst(BaseModel):
-    typename: str = Field(default="TestModel", alias="__typename")
-    simple: str
+@dataclass
+class Fst:
+    typename: str = "TestModel"
+    simple: str = "test"
 
 
-class Snd(BaseModel):
+@dataclass
+class Snd:
     simple: str
     integer: int
     uuid_: UUID
@@ -31,60 +34,68 @@ class Snd(BaseModel):
     list_: list
 
 
-class ThirdInput(BaseModel):
+@dataclass
+class ThirdInput:
     project_id: int
 
 
 third_input = ThirdInput(project_id=123)
 
 
-class Thd(BaseModel):
-    typename: Literal["TestModel"] = Field(default="TestModel", alias="__typename")
-    is_show_start: str
-    is_check_sound: int
-    is_check_video: float
-    is_check_age: UUID
-    is_check_sex: list
-    if_double_cookie: dict
-    if_desktop: set
-    if_mobile: int
-    is_asking_mark: "Thd"
+@dataclass
+class Thd:
+    typename: Literal["TestModel"] = "TestModel"
+    is_show_start: str = "test"
+    is_check_sound: int = 1
+    is_check_video: float = 2
+    is_check_age: UUID = uuid4()
+    is_check_sex: list = field(default_factory=list)
+    if_double_cookie: dict = field(default_factory=dict)
+    if_desktop: set = field(default_factory=set)
+    if_mobile: int = 1
+    is_asking_mark: Optional["Thd"] = None
 
 
 # Вложенные модели
-class City(BaseModel):
+@dataclass
+class City:
     city: str
     city_code: str
     city_id: int
     population: int
 
 
-class ResearchCalcToCities(BaseModel):
+@dataclass
+class ResearchCalcToCities:
     city_id: int
     city: City
     research_calc_uid: UUID
 
 
-class Sex(BaseModel):
+@dataclass
+class Sex:
     sex: str
     sex_id: int
     sex_multiple: bool
 
 
-class ResearchCalcToSexes(BaseModel):
+@dataclass
+class ResearchCalcToSexes:
     research_calc_uid: UUID
     sex: Sex
     sex_id: int
 
 
-class Duration(BaseModel):
+@dataclass
+class Duration:
     duration: int
     duration_cost: float
     duration_id: int
     duration_lim: int
 
 
-class ResearchCalc(BaseModel):
+@dataclass
+class ResearchCalc:
     age_max: int
     age_min: int
     count_respondent: int
@@ -99,7 +110,8 @@ class ResearchCalc(BaseModel):
     research_calc_uid: UUID
 
 
-class StatementAnswer(BaseModel):
+@dataclass
+class StatementAnswer:
     has_difficult_answer: bool
     is_fixed: bool
     sa_text: str
@@ -108,7 +120,8 @@ class StatementAnswer(BaseModel):
     type_sa: str
 
 
-class AdditionalQuestion(BaseModel):
+@dataclass
+class AdditionalQuestion:
     answer_order: int
     image_url: str
     max_selections: int
@@ -123,7 +136,8 @@ class AdditionalQuestion(BaseModel):
     statement_order: int
 
 
-class Client(BaseModel):
+@dataclass
+class Client:
     change_date: str
     company: str
     email: str
@@ -139,47 +153,55 @@ class Client(BaseModel):
     registration_date: str
 
 
-class ErrorComment(BaseModel):
+@dataclass
+class ErrorComment:
     status: str
     text: str
 
 
-class Feedback(BaseModel):
+@dataclass
+class Feedback:
     comment: str
     feedback_id: UUID
     mark: int
 
 
-class Questionnaire(BaseModel):
+@dataclass
+class Questionnaire:
     file_id: UUID
     file_link: str
     file_name_from_user: str
 
 
-class Quota(BaseModel):
+@dataclass
+class Quota:
     file_id: UUID
     file_link: str
     file_name_from_user: str
 
 
-class ReportFile(BaseModel):
+@dataclass
+class ReportFile:
     link: str
     status: str
 
 
-class CellsToQuotas(BaseModel):
+@dataclass
+class CellsToQuotas:
     cell_uid: UUID
     research_quota_uid: UUID
 
 
-class QuotaCell(BaseModel):
+@dataclass
+class QuotaCell:
     cell_uid: UUID
     cell_id: int
     matrix_id: int
     matrix_respondents: int
 
 
-class ResearchQuotas(BaseModel):
+@dataclass
+class ResearchQuotas:
     dimension_id: int
     option_codes: str
     question_code: str
@@ -187,12 +209,14 @@ class ResearchQuotas(BaseModel):
     variable_id: int
 
 
-class ResearchRedirect(BaseModel):
+@dataclass
+class ResearchRedirect:
     redirect_uid: UUID
     redirect_status: str
 
 
-class ResearchIntegration(BaseModel):
+@dataclass
+class ResearchIntegration:
     cells_to_quotas: list[CellsToQuotas]
     main_matrix: str
     quota_cell: list[QuotaCell]
@@ -203,12 +227,14 @@ class ResearchIntegration(BaseModel):
     research_redirect: list[ResearchRedirect]
 
 
-class ResearchQuestions(BaseModel):
+@dataclass
+class ResearchQuestions:
     question_id: int
     answer_id: int
 
 
-class ResearchQuotasQuickCalc(BaseModel):
+@dataclass
+class ResearchQuotasQuickCalc:
     count_respondents: int
     int_range: str
     option_codes: str
@@ -218,7 +244,8 @@ class ResearchQuotasQuickCalc(BaseModel):
     research_quota_uid: UUID
 
 
-class ResearchQuickCalc(BaseModel):
+@dataclass
+class ResearchQuickCalc:
     category_id: int
     cell_selection: str
     quantity: int
@@ -227,7 +254,8 @@ class ResearchQuickCalc(BaseModel):
     testing_type: str
 
 
-class ResearchAttachments(BaseModel):
+@dataclass
+class ResearchAttachments:
     research_uid: UUID
     attachment_uid: UUID
     attachment_type: str
@@ -237,7 +265,8 @@ class ResearchAttachments(BaseModel):
     attachment_link_1: str
 
 
-class ResearchQuickSolution(BaseModel):
+@dataclass
+class ResearchQuickSolution:
     additional_questions_tab_count: int
     category_id: int
     cell_selection: str
@@ -261,7 +290,8 @@ class ResearchQuickSolution(BaseModel):
 
 
 # Основная модель для Research
-class Research(BaseModel):
+@dataclass
+class Research:
     bc_number: str
     client_profile_uid: UUID
     comment: str
@@ -304,27 +334,31 @@ class Research(BaseModel):
 
 
 # Модель для пагинации
-class ResearchPagination(BaseModel):
-    typename: Literal["ResearchPagination"] = Field(default="ResearchPagination", alias="__typename")
-    researches: list[Research]
-    pages: int
+@dataclass
+class ResearchPagination:
+    typename: Literal["ResearchPagination"] = "ResearchPagination"
+    researches: Union[list[Research], None] = None
+    pages: int = 1
 
 
-class Filter(BaseModel):
+@dataclass
+class Filter:
     pass
 
 
-class OrderBy(BaseModel):
+@dataclass
+class OrderBy:
     pass
 
 
 # Модель для входных параметров
-class FourthInput(BaseModel):
-    where: Filter | None = None
-    page: int | None = None
-    order_by: dict | OrderBy | None = None
-    limit: int | None = None
-    list_: list | None = None
+@dataclass
+class FourthInput:
+    where: Optional[Filter] = None
+    page: Optional[int] = None
+    order_by: Optional[dict | OrderBy] = None
+    limit: Optional[int] = None
+    list_: Optional[list] = None
 
 
 fourth_input = FourthInput(
@@ -346,11 +380,17 @@ fourth_input = FourthInput(
     )
 )
 def test_build_query(schemas, inputs, check_query):
-    query = build_query(
-        GraphQlMethodType.query,
-        "test_query",
-        *schemas,
+    inputs = (
+        {field.name: getattr(inputs, field.name) for field in fields(inputs)}
+        if inputs
+        else
+        None
+    )
+    query = GraphQlQuery(
+        type_method=GraphQlMethodType.query,
         name="MyQuery",
+        name_method="test_query",
         inputs=inputs,
+        models=dataclass_converter.build_graph_ql_models(schemas),
     )
     assert normalize_graphql_query(str(query)) == normalize_graphql_query(check_query), f"{check_query} = {str(query)}"

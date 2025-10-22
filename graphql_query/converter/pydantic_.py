@@ -1,6 +1,7 @@
-from typing import Any, Union, get_origin, get_args
+import logging
+from typing import Any, Union, get_origin, get_args, Type
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 from pydantic_core import PydanticUndefined
 from pydantic.fields import FieldInfo
 
@@ -69,5 +70,29 @@ def bind_graph_ql_model(
     return GraphQlModel(name=name_model, fields=fiedls)
 
 
-def get_graph_ql_models(schemas: list[type[BaseModel]]) -> list[GraphQlModel]:
+def build_graph_ql_models(schemas: list[type[BaseModel]]) -> list[GraphQlModel]:
     return [bind_graph_ql_model(schema) for schema in schemas]
+
+
+def handler_validation(data: dict[str, Any], type_schema: Type[BaseModel]) -> BaseModel | None:
+    try:
+        return type_schema(**data)
+    except ValidationError as e:
+        logging.debug(f'Data for schema {type_schema.__name__} is not valid: {e}')
+    return None
+
+
+def build_schema_from_data(data: dict[str, Any], *type_schemas: Type[BaseModel]) -> BaseModel:
+    if not type_schemas:
+        raise ValueError("Type schemas is empty")
+
+    schema = next((
+        res for t_s in type_schemas
+        if (res := handler_validation(data, t_s))
+    ), None)
+
+    if schema is None:
+        schema_names = [t_s.__name__ for t_s in type_schemas]
+        raise TypeError(f"Niether of the schemas {schema_names} valid for data. Data: {data}")
+
+    return schema

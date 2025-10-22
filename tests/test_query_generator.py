@@ -23,7 +23,7 @@ mutation MyMutation {
 }
 """
 fst_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.mutation,
+    type_method=types.GraphQlMethodType.mutation,
     name="MyMutation",
     name_method="add_research",
     models=[
@@ -52,7 +52,7 @@ query MyMutation($comment: String, $date_end: Date) {
 }
 """
 snd_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.query,
+    type_method=types.GraphQlMethodType.query,
     name="MyMutation",
     name_method="add_research",
     inputs={"comment": "test", "date_end": date(2022, 1, 1)},
@@ -89,7 +89,7 @@ class TypeContractCode:
 
 
 thd_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.mutation,
+    type_method=types.GraphQlMethodType.mutation,
     name="MyMutation",
     name_method="add_research",
     inputs={
@@ -129,7 +129,7 @@ class ResearchCalcInput:
 
 
 foth_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.mutation,
+    type_method=types.GraphQlMethodType.mutation,
     name="MyMutation",
     name_method="add_research",
     inputs={"research_calc": ResearchCalcInput()},
@@ -168,7 +168,7 @@ mutation MyMutation {
     }
 }"""
 six_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.mutation,
+    type_method=types.GraphQlMethodType.mutation,
     name="MyMutation",
     name_method="add_research",
     models=[
@@ -218,7 +218,7 @@ query GetAll {
 }
 """
 empty_inputs_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.query,
+    type_method=types.GraphQlMethodType.query,
     name="GetAll",
     name_method="get_all",
     inputs=None,
@@ -249,7 +249,7 @@ empty_inputs_query = types.GraphQlQuery(
 
 special_chars_mutation = """query Research_Query_2023 {research_query_2023 {... on ReturnError {__typename name message} ... on research_data {data_id data_value}}}"""
 special_chars_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.query,
+    type_method=types.GraphQlMethodType.query,
     name="Research_Query_2023",
     name_method="research_query_2023",
     models=[
@@ -266,7 +266,7 @@ special_chars_query = types.GraphQlQuery(
 
 only_error_mutation = """mutation DeleteResearch {delete_research {... on ReturnError {__typename name message}}}"""
 only_error_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.mutation,
+    type_method=types.GraphQlMethodType.mutation,
     name="DeleteResearch",
     name_method="delete_research",
     models=[
@@ -276,7 +276,7 @@ only_error_query = types.GraphQlQuery(
 
 mixed_fields_mutation = """query GetResearchDetails {get_research_details {... on ReturnError {__typename name message} ... on research {simple_field research_details {detail_field deeper_details {deep_field}}}}}"""
 mixed_fields_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.query,
+    type_method=types.GraphQlMethodType.query,
     name="GetResearchDetails",
     name_method="get_research_details",
     models=[
@@ -322,7 +322,7 @@ mutation ComplexMutation($id: UUID, $dates: [Date!], $metadata: MetadataInput) {
 }
 """
 complex_inputs_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.mutation,
+    type_method=types.GraphQlMethodType.mutation,
     name="ComplexMutation",
     name_method="complex_mutation",
     inputs={
@@ -346,7 +346,7 @@ complex_inputs_query = types.GraphQlQuery(
 
 deep_nested_mutation = """query GetResearch {get_research {... on ReturnError {__typename name message} ... on research {research_uid research_name researcher {researcher_id researcher_name contacts {email phone} department {department_name department_head {head_name}}}} ... on AdditionalModel {field1 field2}}}"""
 deep_nested_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.query,
+    type_method=types.GraphQlMethodType.query,
     name="GetResearch",
     name_method="get_research",
     models=[
@@ -410,7 +410,7 @@ mutation UpdateResearch($research_id: UUID, $updated_at: DateTime) {
 }
 """
 uuid_datetime_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.mutation,
+    type_method=types.GraphQlMethodType.mutation,
     name="UpdateResearch",
     name_method="update_research",
     inputs={
@@ -443,7 +443,7 @@ mutation CreateResearch($name: String, $budget: Float, $is_active: Boolean, $cou
 }
 """
 mixed_inputs_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.mutation,
+    type_method=types.GraphQlMethodType.mutation,
     name="CreateResearch",
     name_method="create_research",
     inputs={
@@ -487,7 +487,7 @@ mutation SpecialMutation($custom_data: CustomType, $special_id: SpecialID) {
 }
 """
 custom_mapping_query = types.GraphQlQuery(
-    type_=types.GraphQlMethodType.mutation,
+    type_method=types.GraphQlMethodType.mutation,
     name="SpecialMutation",
     name_method="special_method",
     inputs={

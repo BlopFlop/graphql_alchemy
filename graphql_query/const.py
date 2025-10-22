@@ -5,6 +5,8 @@ from typing import Final
 
 from .types import GraphQlField, GraphQlModel, GraphQlTypeValue
 
+QUERY_DEFAULT_NAME = "AutoGenQuery"
+
 TYPENAME_FIELD: Final[GraphQlField] = GraphQlField(name="__typename", type=str)
 
 RETURN_ERROR: Final[GraphQlModel] = GraphQlModel(

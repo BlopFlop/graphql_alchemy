@@ -45,7 +45,7 @@ class GraphQlQuery(BaseModel):
     }
     ```
     """
-    type_: GraphQlMethodType
+    type_method: GraphQlMethodType
     name: str = "Default"
     name_method: str
     inputs: dict[str, Any] | None = None
@@ -73,4 +73,4 @@ class GraphQlQuery(BaseModel):
         else:
             mapping, inputs = "", ""
 
-        return f"{self.type_} {self.name}{mapping} {{{self.name_method}{inputs} {fields}}}"
+        return f"{self.type_method} {self.name}{mapping} {{{self.name_method}{inputs} {fields}}}"
