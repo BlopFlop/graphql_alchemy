@@ -8,6 +8,9 @@ from pydantic.fields import FieldInfo
 from graphql_query.types import GraphQlModel, GraphQlField
 
 
+TYPENAME_FIELD = "typename"
+
+
 def get_pydantic_model_from_field_annotate(field_info: FieldInfo) -> BaseModel | None:
     annotation = field_info.annotation
 

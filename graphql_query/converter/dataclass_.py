@@ -7,6 +7,8 @@ from graphql_query.types import GraphQlModel, GraphQlField
 
 Dataclass = TypeVar('Dataclass')
 
+TYPENAME_FIELD = "typename"
+
 
 def get_dataclass_from_field_annotate(annotation: Any) -> Any | None:
     if is_dataclass(annotation):
@@ -73,13 +75,13 @@ def bind_graph_ql_model(
             GraphQlField(name=field.name)
         )
 
-        if graphql_item.name == "typename":
+        if graphql_item.name == TYPENAME_FIELD:
             graphql_item.name = "__typename"
 
         graphql_fields.append(graphql_item)
 
     name_model = (
-        get_default_dataclass_value(schema, "typename") or schema.__name__
+        get_default_dataclass_value(schema, TYPENAME_FIELD) or schema.__name__
         if name_model is None
         else
         name_model

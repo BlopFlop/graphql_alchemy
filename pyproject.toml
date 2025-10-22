@@ -1,10 +1,14 @@
 [project]
 name = "graphql-alchemy"
 version = "0.1.0"
-description = "Add your description here"
+description = "Graph ql client library"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pydantic>=2.12.3",
+    "pytest>=8.4.2",
+    "pytest-coverage>=0.0",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["graphql_query"]
