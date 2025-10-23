@@ -10,6 +10,10 @@ Dataclass = TypeVar('Dataclass')
 TYPENAME_FIELD = "typename"
 
 
+def get_input_types(input_data: Dataclass):
+    return {field: getattr(input_data, field) for field in fields(input_data)}  # noqa
+
+
 def get_dataclass_from_field_annotate(annotation: Any) -> Any | None:
     if is_dataclass(annotation):
         return annotation

@@ -18,6 +18,7 @@ snd_query = """
 query MyQuery {
     test_query {
         ... on Snd {
+            __typename
             simple
             integer
             uuid_

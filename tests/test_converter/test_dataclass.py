@@ -90,6 +90,7 @@ def test_build_schema_empty_schemas():
 
 doube_schemas_data = {"id": 1, "name": "John", "email": "john@test.com", "product_id": 123, "title": "Product", "price": 99.99}
 
+
 @pytest.mark.parametrize(
     "data, schemas, good_schema",
     (

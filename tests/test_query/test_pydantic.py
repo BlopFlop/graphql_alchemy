@@ -6,7 +6,7 @@ from graphql_query.types import GraphQlMethodType, GraphQlQuery
 import pytest
 from pydantic import BaseModel, Field
 
-from graphql_query.converter import pydantic_converter
+from graphql_query.converter import pydantic_ as pydantic_converter
 
 from tests.fixtures.fuctions import normalize_graphql_query
 from tests.fixtures.queries import fst_query, snd_query, third_query, fouth_query
@@ -24,6 +24,7 @@ class Fst(BaseModel):
 
 
 class Snd(BaseModel):
+    typename: Literal["Snd"] = Field(default="Snd", alias="__typename")
     simple: str
     integer: int
     uuid_: UUID

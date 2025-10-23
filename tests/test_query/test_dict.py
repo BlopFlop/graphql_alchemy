@@ -1,9 +1,8 @@
-from uuid import UUID
 from graphql_query.types import GraphQlMethodType, GraphQlQuery
 import pytest
 from graphql_query.converter.dict_ import build_graph_ql_models
 from tests.fixtures.fuctions import normalize_graphql_query
-from tests.fixtures.queries import fst_query, third_query, fouth_query
+from tests.fixtures.queries import fst_query, snd_query, third_query, fouth_query
 
 # Данные для тестов в виде словарей
 return_error_data = {
@@ -17,21 +16,6 @@ fst_data = {
     "simple": "test_string"
 }
 
-snd_query = """
-query MyQuery {
-    test_query {
-        ... on Snd {
-            __typename
-            simple
-            integer
-            uuid_
-            float_
-            boolean
-            list_
-        }
-    }
-}
-"""
 snd_data = {
     "__typename": "Snd",
     "simple": "test_string",

@@ -5,7 +5,7 @@ import pytest
 from dataclasses import fields, field, dataclass
 
 from graphql_query.types import GraphQlMethodType, GraphQlQuery
-from graphql_query.converter import dataclass_converter
+from graphql_query.converter import dataclass_ as dataclass_converter
 
 from tests.fixtures.fuctions import normalize_graphql_query
 from tests.fixtures.queries import fst_query, snd_query, third_query, fouth_query
@@ -26,12 +26,13 @@ class Fst:
 
 @dataclass
 class Snd:
-    simple: str
-    integer: int
-    uuid_: UUID
-    float_: float
-    boolean: bool
-    list_: list
+    typename: Literal["Snd"] = "Snd"
+    simple: str = "str"
+    integer: int = 1
+    uuid_: UUID = uuid4()
+    float_: float = 1.0
+    boolean: bool = True
+    list_: list = field(default_factory=list)
 
 
 @dataclass

@@ -2,6 +2,7 @@ from typing import Any
 
 from graphql_query.types import GraphQlModel, GraphQlField
 
+
 TYPENAME_FIELD = "__typename"
 
 
