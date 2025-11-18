@@ -4,8 +4,8 @@ from uuid import UUID, uuid4
 import pytest
 from dataclasses import fields, field, dataclass
 
-from graphql_query.types import GraphQlMethodType, GraphQlQuery
-from graphql_query.converter import dataclass_ as dataclass_converter
+from src.types import GraphQlMethodType, GraphQlQuery
+from src.converter import dataclass_ as dataclass_converter
 
 from tests.fixtures.fuctions import normalize_graphql_query
 from tests.fixtures.queries import fst_query, snd_query, third_query, fouth_query

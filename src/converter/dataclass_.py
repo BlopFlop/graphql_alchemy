@@ -2,7 +2,7 @@ import logging
 from typing import Any, Union, get_origin, get_args, TypeVar
 from dataclasses import fields, is_dataclass, MISSING
 
-from graphql_query.types import GraphQlModel, GraphQlField
+from ..types import GraphQlModel, GraphQlField
 
 
 Dataclass = TypeVar('Dataclass')

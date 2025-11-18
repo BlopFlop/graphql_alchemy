@@ -5,7 +5,7 @@ from pydantic import BaseModel, ValidationError
 from pydantic_core import PydanticUndefined
 from pydantic.fields import FieldInfo
 
-from graphql_query.types import GraphQlModel, GraphQlField
+from ..types import GraphQlModel, GraphQlField
 
 
 TYPENAME_FIELD = "typename"

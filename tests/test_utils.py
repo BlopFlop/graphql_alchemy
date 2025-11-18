@@ -2,8 +2,8 @@ from datetime import date, datetime
 
 import pytest
 
-from graphql_query.utils import inputs_to_graphql_mapping
-from graphql_query.const import String, Int, Float, Boolean
+from src.utils import inputs_to_graphql_mapping
+from src.const import String, Int, Float, Boolean
 
 
 class TEST:

@@ -4,8 +4,8 @@ from pydantic import BaseModel, Field, model_validator
 
 from .base import GraphQlModel
 from .enums import GraphQlMethodType
-from graphql_query.const import String, Int, Float, Boolean, Date, DateTime, UUID
-from graphql_query.utils import inputs_to_graphql_mapping, models_to_graphql
+from ..const import String, Int, Float, Boolean, Date, DateTime, UUID
+from ..utils import inputs_to_graphql_mapping, models_to_graphql
 
 
 class GraphQlQuery(BaseModel):

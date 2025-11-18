@@ -3,7 +3,7 @@ from uuid import UUID
 
 import pytest
 
-from graphql_query import types, const
+from src import types, const
 from tests.fixtures.fuctions import normalize_graphql_query
 
 

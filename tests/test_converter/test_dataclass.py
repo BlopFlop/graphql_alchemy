@@ -1,7 +1,7 @@
 from typing import Any
 from pydantic.dataclasses import dataclass
 import pytest
-from graphql_query.converter.dataclass_ import handler_validation, build_schema_from_data
+from src.converter.dataclass_ import handler_validation, build_schema_from_data
 
 
 @dataclass

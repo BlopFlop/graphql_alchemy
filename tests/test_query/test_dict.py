@@ -1,6 +1,6 @@
-from graphql_query.types import GraphQlMethodType, GraphQlQuery
+from src.types import GraphQlMethodType, GraphQlQuery
 import pytest
-from graphql_query.converter.dict_ import build_graph_ql_models
+from src.converter.dict_ import build_graph_ql_models
 from tests.fixtures.fuctions import normalize_graphql_query
 from tests.fixtures.queries import fst_query, snd_query, third_query, fouth_query
 

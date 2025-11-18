@@ -2,7 +2,7 @@ from typing import Any
 
 import pytest
 from pydantic import BaseModel
-from graphql_query.converter.pydantic_ import handler_validation, build_schema_from_data
+from src.converter.pydantic_ import handler_validation, build_schema_from_data
 
 
 class UserSchema(BaseModel):
