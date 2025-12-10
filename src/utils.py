@@ -26,7 +26,7 @@ def inputs_to_graphql_mapping(
 
         map_type = get_name_map_type_or_type(values)
 
-        result.append(f"${field}: {map_type}")
+        result.append(f"${field}: {map_type}!")
         map_fields.append(f"{field}: ${field}")
     return ", ".join(result), ", ".join(map_fields)
 

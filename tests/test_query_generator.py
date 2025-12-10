@@ -394,6 +394,7 @@ deep_nested_query = types.GraphQlQuery(
     ]
 )
 
+
 uuid_datetime_mutation = """
 mutation UpdateResearch($research_id: UUID, $updated_at: DateTime) {
     update_research(research_id: $research_id, updated_at: $updated_at) {

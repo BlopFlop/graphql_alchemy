@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="graphql_alchemy",
-    version="0.0.4",
+    version="0.0.5",
     author="Artur Youngblood",
     author_email="arturungb@gmail.com",
     description="GraphQl query builder.",
